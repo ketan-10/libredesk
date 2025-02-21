@@ -1,0 +1,16 @@
+releases:
+  - name: "Release to github"
+    dist_folder: "./dist"
+    targets:
+      github:
+        owner: "ketan-10"
+        repo: "libredesk"
+    checksum:
+      algorithm: "sha256"
+    builds:
+      - command: "make build"
+        name: "linux build"
+        artifact: "libredesk.bin"
+        archive_name: 'libredesk-linux-x86_64'
+        additional_files:
+          - "README.md"
