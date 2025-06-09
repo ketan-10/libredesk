@@ -82,5 +82,37 @@ func V0_7_0(db *sqlx.DB, fs stuffbin.FileSystem, ko *koanf.Koanf) error {
 		return err
 	}
 
+	// Create article_categories table
+    _, err = db.Exec(`
+        DROP TABLE IF EXISTS article_categories CASCADE;
+        CREATE TABLE article_categories (
+            id SERIAL PRIMARY KEY,
+            created_at TIMESTAMPTZ DEFAULT NOW(),
+            updated_at TIMESTAMPTZ DEFAULT NOW(),
+            "name" TEXT NOT NULL UNIQUE,
+            CONSTRAINT constraint_article_categories_on_name CHECK (length("name") <= 140)
+        );
+    `)
+    if err != nil {
+        return err
+    }
+
+    // Create article_sections table
+    _, err = db.Exec(`
+        DROP TABLE IF EXISTS article_sections CASCADE;
+        CREATE TABLE article_sections (
+            id SERIAL PRIMARY KEY,
+            created_at TIMESTAMPTZ DEFAULT NOW(),
+            updated_at TIMESTAMPTZ DEFAULT NOW(),
+            "name" TEXT NOT NULL UNIQUE,
+            category_id INT REFERENCES article_categories(id) ON DELETE CASCADE ON UPDATE CASCADE,
+            CONSTRAINT constraint_article_sections_on_name CHECK (length("name") <= 140)
+        );
+    `)
+    if err != nil {
+        return err
+    }
+
+
 	return nil
 }
