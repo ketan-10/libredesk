@@ -147,3 +147,31 @@ export const contactNavItems = [
         href: '/contacts',
     }
 ]
+
+export const articlesNavItems = [
+    {
+        titleKey: 'globals.terms.article',
+        children: [
+            {
+                titleKey: 'globals.terms.category',
+                href: '/article/category',
+                permission: 'general_settings:manage'
+            },
+            {
+                titleKey: 'globals.terms.section',
+                href: '/article/section',
+                permission: 'general_settings:manage'
+            },
+            {
+                titleKey: 'globals.terms.article',
+                href: '/article/article',
+                permission: 'general_settings:manage'
+            }
+        ]
+    }, 
+    {
+        titleKey: 'globals.terms.setting',
+        href: '/article/setting',
+        permission: 'general_settings:manage'
+    }
+]

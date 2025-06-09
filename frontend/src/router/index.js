@@ -454,6 +454,57 @@ const routes = [
             ]
           }
         ]
+      },
+      {
+        path: '/article',
+        name: 'article',
+        component: AdminLayout,
+        meta: { title: 'Article' },
+        children: [
+          {
+            path: 'category',
+            name: 'article-category',
+            component: () => import('@/views/articles/category/CategoryView.vue'),
+            meta: { title: 'Custom attributes' }
+          },
+          {
+            path: 'section',
+            name: 'article-section',
+            component: () => import('@/views/articles/section/SectionView.vue'),
+            meta: { title: 'General' }
+          },
+          {
+            path: 'article',
+            component: () => import('@/views/articles/article/Articles.vue'),
+            meta: { title: 'Articles' },
+            children: [
+              {
+                path: '',
+                name: 'article-list',
+                // frontend/src/views/articles/category/CategoryView.vue
+                component: () => import('@/views/articles/article/ArticleList.vue'),
+              },
+              {
+                path: 'new',
+                name: 'new-article',
+                component: () => import('@/views/articles/article/CreateArticle.vue'),
+                meta: { title: 'Create article' }
+              },
+              {
+                path: ':id/edit',
+                props: true,
+                component: () => import('@/views/articles/article/EditArticle.vue'),
+                meta: { title: 'Edit article' }
+              },
+            ]
+          },
+          {
+            path: 'setting',
+            name: 'articles-setting',
+            component: () => import('@/views/articles/setting/ArticleSetting.vue'),
+            meta: { title: 'General' }
+          },
+        ]
       }
     ]
   },
